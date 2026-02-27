@@ -1,5 +1,6 @@
 package com.gagan.Hospatil_Management_System;
 
+import com.gagan.Hospatil_Management_System.Services.PatientServices;
 import com.gagan.Hospatil_Management_System.entity.Patient;
 import com.gagan.Hospatil_Management_System.repository.PatientRepository;
 import org.junit.jupiter.api.Test;
@@ -10,12 +11,24 @@ import java.util.List;
 
 @SpringBootTest
 public class PatientTest {
+
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private PatientServices patientServices;
 
     @Test
     public void testPatientRepository(){
         List<Patient> patientList=patientRepository.findAll();
         System.out.println(patientList);
+
+        Patient p1=new Patient();
+        patientRepository.save(p1);
+    }
+    @Test
+    public void testTransactionMethods(){
+        Patient patient=patientServices.getPatientById(1L);
+        System.out.println(patient);
     }
 }
